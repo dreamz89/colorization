@@ -1,24 +1,25 @@
-var body = document.querySelector('body')
-var colorText = document.querySelector('.colorText')
-var colorPalette = ['red', 'green', 'blue', 'orange', 'purple']
+var colorPalette = ['green', 'blue', 'red', 'purple', 'yellow']
 var counter = 0
-var color = ''
 var score = document.querySelector('.score')
 
-// colors change independently of button click
-setInterval(colorize, 1000)
-colorText.style.innerText =
-colorText.innerText = colorPalette[Math.floor(Math.random() * 5)]
+function randomColor(){
+  var color = colorPalette[Math.floor(Math.random() * 5)]
+  return color;
+}
 
-document.querySelector('div').addEventListener('click', function () {
-  if (colorText.innerText === color) {
+function colorize (){
+  var bgColor = randomColor()
+  document.querySelector('body').style.backgroundColor = bgColor
+  var innerColor = randomColor()
+  document.querySelector('h2').textContent = innerColor
+  document.querySelector('h2').addEventListener('click', function(){
+    if (bgColor === innerColor){
     counter++
     score.innerText = counter
-    colorText.innerText = colorPalette[Math.floor(Math.random() * 5)]
-  }
-})
-
-function colorize () {
-  body.style.backgroundColor = colorPalette[Math.floor(Math.random() * 5)] // changes body backgroundColor
-  color = body.style.backgroundColor
+    bgColor = randomColor()  //why does this fix the logic?
+    innerColor = randomColor() //why does this fix the logic?
+    }
+  })
 }
+
+setInterval(colorize, 1000);
